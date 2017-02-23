@@ -6,12 +6,12 @@ app = Flask(__name__)
 def mainpage():
     return 'You are at the main page.'
 
-@app.route('/index/<int:category_id>/')
+@app.route('/category/<int:category_id>/')
 def showCategoryItems(category_id):
     return 'You are on categories item page.'
 
-@app.route('/index/<int:category_id>/<int:item_id>')
-def showItem():
+@app.route('/category/<int:category_id>/item/<int:item_id>')
+def showItem(category_id, item_id):
     return 'You are on the item page.'
 
 if __name__ == '__main__':
