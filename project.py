@@ -1,5 +1,6 @@
 from flask import Flask
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Category, Item
 engine = create_engine('sqlite:///itemcatalog.db')
 Base.metadata.bind = engine
