@@ -1,37 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Catalog App</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="js/jquery-3.1.1.js">
-    <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <meta charset="utf-8">
-</head>
-<body>
-    {% extends "base.html" %}
-    {% block content1 %}
+
+{% extends "base.html" %}
+{% block content1 %}
+<div>
+    <h1>Categories</h1>
+</div>
+{% for category in categories %}
+<div>
+    {{category.name}}
+</div>
+{% endfor %}
+{% endblock %}
+{% block content2 %}
+<div>
+    <h1>Latest Items</h1>
+    {% for item in items %}
     <div>
-        <h1>Categories</h1>
-    </div>
-    {% for category in categories %}
-    <div>
-        {{category.name}}
+        {{item.name}}
     </div>
     {% endfor %}
-    {% endblock %}
-    {% block content2 %}
-    <div>
-        <h1>Latest Items</h1>
-        {% for item in items %}
-        <div>
-            {{item.name}}
-        </div>
-        {% endfor %}
-    </div>
-    {% endblock %}
-</body>
-</html>
+</div>
+{% endblock %}
