@@ -22,7 +22,7 @@ class Item(Base):
     description = Column(String(250))
     category_id = Column(Integer, ForeignKey('categories.id'))
     categories = relationship(Category)
-    created_date = Column(DateTime, default = datetime.datetime.utcnow)
+    #created_date = Column(DateTime, default = datetime.datetime.utcnow)
 
 engine = create_engine('sqlite:///itemcatalog.db')
 Base.metadata.create_all(engine)
