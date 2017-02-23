@@ -3,11 +3,11 @@
 <div>
     <h1>Categories</h1>
 </div>
-{%for category in categories%}
+{% for category in categories %}
 <div>
     {{category.name}}
 </div>
-{{%endfor%}}
+{% endfor %}
 {% endblock %}
 {% block content2 %}
 <div>
@@ -16,5 +16,6 @@
     <div>
         {{items[num].name}}
     </div>
+    {% endfor %}
 </div>
 {% endblock %}
