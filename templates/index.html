@@ -12,9 +12,9 @@
 {% block content2 %}
 <div>
     <h1>Latest Items</h1>
-    {% for num in range(10) %}
+    {% for item in items %}
     <div>
-        {{items[num].name}}
+        {{item.name}}
     </div>
     {% endfor %}
 </div>
