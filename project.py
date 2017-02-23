@@ -30,7 +30,9 @@ def showCategoryItems(category_id):
 
 @app.route('/category/<int:category_id>/item/<int:item_id>/')
 def showItem(category_id, item_id):
-    return 'You are on the item page.'
+    #return 'You are on the item page.'
+    item = session.query(Item).filter_by(id = item_id).first()
+    return render_template('item.html', item = item, category_id = category_id)
 
 @app.route('/category/<int:category_id>/new/')
 def addNewItem(category_id):

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content1 %}
+<div>
+    <h1>Categories</h1>
+</div>
+{% for category in categories %}
+<div>
+    <a href="{{ url_for('showCategoryItems', category_id = category.id) }}">{{category.name}}</a>
+</div>
+{% endfor %}
+{% endblock %}
+{% block content2 %}
+<div>
+    <h1>{{item.name}}</h1>
+    <div>
+        {{item.description}}
+    </div>
+    <div>
+        <a href="{{url_for('editItem', category_id = {{category_id}}, item_id = item.id)}}">Edit</a>
+    </div>
+    <div>
+        <a href="{{url_for('deleteItem', category_id = {{category_id}}, item_id = item.id)}}">Delete</a>
+    </div>
+</div>
+{% endblock %}
