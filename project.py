@@ -15,7 +15,7 @@ def mainpage():
     #return 'You are at the main page.'
     categories = session.query(Category).all()
     latest_items = session.query(Item).order_by("created_date desc")
-    return render_template('index.html', categories = categories, items = items)
+    return render_template('index.html', categories = categories, items = latest_items)
 
 @app.route('/category/<int:category_id>/')
 def showCategoryItems(category_id):
