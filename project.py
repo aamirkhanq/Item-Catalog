@@ -25,7 +25,7 @@ def showCategoryItems(category_id):
     category = session.query(Category).filter_by(id = category_id).first()
     category = category.name
     category += 'Items (' + str(num_of_items) + 'items)'
-    return render_template('categoryitems.html', items = items)
+    return render_template('categoryitems.html', items = items, category = category)
 
 @app.route('/category/<int:category_id>/item/<int:item_id>/')
 def showItem(category_id, item_id):
