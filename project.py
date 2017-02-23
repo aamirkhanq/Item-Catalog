@@ -14,7 +14,7 @@ app = Flask(__name__)
 def mainpage():
     #return 'You are at the main page.'
     categories = session.query(Category).all()
-    latest_items = session.query(Item).order_by(created_date desc)
+    latest_items = session.query(Item).order_by("created_date desc")
     return render_template('index.html', categories = categories, items = items)
 
 @app.route('/category/<int:category_id>/')
