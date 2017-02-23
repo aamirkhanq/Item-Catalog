@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Catalog App</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery-3.1.1.js">
+    <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta charset="utf-8">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="row header_row">
+                <div class="col-xs-8">
+                    <h1>Catalog App</h1>
+                </div>
+                <div class="col-xs-4 access-button">
+                    <p>{{string}}</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row body-row">
+                <div class="main-content">
+                    <div class="col-xs-4">
+                        {% block content1 %}
+                        {% end block %}
+                    </div>
+                    <div class="col-xs-8">
+                        {% block content2 %}
+                        {% end block %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

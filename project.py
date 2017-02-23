@@ -4,7 +4,10 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/index/')
 def mainpage():
-    return 'You are at the main page.'
+    #return 'You are at the main page.'
+    categories = session.query(Category).all()
+    latest_items = session.query(Item).order_by(desc(created_date))
+    return render_template('index.html', categories = categories, items = items)
 
 @app.route('/category/<int:category_id>/')
 def showCategoryItems(category_id):

@@ -1,0 +1,21 @@
+.header_row {
+    background-color: #1A237E;
+    color: #FFFFFF;
+}
+.body-row {
+    background-color: #EDE7F6;
+}
+.main-content {
+    background-color: white;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.access-button {
+    background-color: orange;
+    max-width: 30%;
+    max-height: 50%;
+    margin-top: 23px;
+    text-align: center;
+}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content1 %}
+<div>
+    <h1>Categories</h1>
+</div>
+{%for category in categories%}
+<div>
+    {{category.name}}
+</div>
+{{%endfor%}}
+{% endblock %}
+{% block content2 %}
+<div>
+    <h1>Latest Items</h1>
+    {% for num in range(10) %}
+    <div>
+        {{items[num].name}}
+    </div>
+</div>
+{% endblock %}
