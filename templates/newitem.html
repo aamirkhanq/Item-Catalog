@@ -11,7 +11,7 @@
 {% endblock %}
 {% block content2 %}
 <div>
-    <form action="url_for('addNewItem')" method="post">
+    <form action="{{ url_for('addNewItem') }}" method="post">
         <label>
             Item Name:
             <input type="text" name="name">
