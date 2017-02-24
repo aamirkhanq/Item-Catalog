@@ -60,7 +60,7 @@ def editItem(category_id, item_id):
     if request.method == "POST":
         pass
     else:
-        return render_template('edititem.html', name = item_name, description = item_description, category_id = category_id, item_id = item_id, categories = categories)
+        return render_template('editItem.html', name = item_name, description = item_description, category_id = category_id, item_id = item_id, categories = categories)
 
 @app.route('/category/<int:category_id>/<int:item_id>/delete/', methods = ['GET', 'POST'])
 def deleteItem(category_id, item_id):
