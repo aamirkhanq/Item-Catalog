@@ -62,7 +62,8 @@ def editItem(category_id, item_id):
             item.name = request.form['title']
         if request.form['description']:
             item.description = request.form['description']
-        item.category_id = session.query(Category).filter_by(name = request.form['q']).one().id
+        item.category_id = session.query(Category).filter_by(name = request.form['q']).one()
+        item.category_id = item.category_id.id
         return redirect(url_for('showItem', category_id = item.category_id, item_id = item_id))
     else:
         return render_template('editItem.html', name = item_name, description = item_description, category_id = category_id, item_id = item_id, categories = categories)
