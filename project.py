@@ -41,7 +41,7 @@ def addNewItem():
         if request.form['name']:
             category = request.form['q']
             category_id = session.query(Category).filter_by(name = category).first()
-            newItem = Item(name = request.form['name'], description = request.form['description'], category_id = category_id)
+            newItem = Item(name = request.form['name'], description = request.form['description'], category_id = category_id.id)
             session.add(newItem)
             session.commit()
     else:
