@@ -12,6 +12,7 @@
 {% endblock %}
 {% block content2 %}
 <div>
+    <a href="{{ url_for('addNewItem') }}">Add Item</a>
     <h1>Latest Items</h1>
     {% for item in items %}
     <div>

@@ -15,7 +15,7 @@ def mainpage():
     #return 'You are at the main page.'
     categories = session.query(Category).all()
     latest_items = session.query(Item).all()
-    return render_template('index.html', categories = categories, items = latest_items, string = "Login")
+    return render_template('index.html', categories = categories, items = latest_items, string = "Login", category_id = )
 
 @app.route('/category/<int:category_id>/')
 def showCategoryItems(category_id):
@@ -34,9 +34,19 @@ def showItem(category_id, item_id):
     item = session.query(Item).filter_by(id = item_id).first()
     return render_template('item.html', item = item, category_id = category_id)
 
-@app.route('/category/<int:category_id>/new/')
+@app.route('/category/new/, methods = ["GET", "POST"]')
 def addNewItem(category_id):
-    return 'This page is for adding items.'
+    #return 'This page is for adding items.'
+    if request.method == 'POST':
+        if request.form['name']:
+            category = request.form['q']
+            category_id = session.query(Category).filter_by(name = category).first()
+            newItem = Item(name = request.form['name'], description = request.form['description'], category_id = category_id)
+            session.add(newItem)
+            session.commit()
+    else:
+        categories = session.query(Category).all()
+        return render_template('newitem.html', categories = categories)
 
 @app.route('/category/<int:category_id>/<int:item_id>/edit/', methods = ['GET', 'POST'])
 def editItem(category_id, item_id):

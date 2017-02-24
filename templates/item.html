@@ -16,10 +16,10 @@
         {{item.description}}
     </div>
     <div>
-        <a href="{{url_for('editItem', category_id = {{category_id}}, item_id = item.id)}}">Edit</a>
+        <a href="{{url_for('editItem', category_id = category_id, item_id = item.id)}}">Edit</a>
     </div>
     <div>
-        <a href="{{url_for('deleteItem', category_id = {{category_id}}, item_id = item.id)}}">Delete</a>
+        <a href="{{url_for('deleteItem', category_id = category_id, item_id = item.id)}}">Delete</a>
     </div>
 </div>
 {% endblock %}
