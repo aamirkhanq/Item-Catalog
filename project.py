@@ -35,7 +35,7 @@ def showItem(category_id, item_id):
     return render_template('item.html', item = item, category_id = category_id)
 
 @app.route('/category/new/, methods = ["GET", "POST"]')
-def addNewItem(category_id):
+def addNewItem():
     #return 'This page is for adding items.'
     if request.method == 'POST':
         if request.form['name']:
