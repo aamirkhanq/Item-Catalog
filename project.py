@@ -44,6 +44,7 @@ def addNewItem():
             newItem = Item(name = request.form['name'], description = request.form['description'], category_id = category_id.id)
             session.add(newItem)
             session.commit()
+            return redirect(url_for(showItem(), category_id = category_id.id, item_id = newItem.id))
     else:
         categories = session.query(Category).all()
         return render_template('newitem.html', categories = categories)
