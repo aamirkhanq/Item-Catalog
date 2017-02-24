@@ -34,7 +34,7 @@ def showItem(category_id, item_id):
     item = session.query(Item).filter_by(id = item_id).first()
     return render_template('item.html', item = item, category_id = category_id)
 
-@app.route('/category/new/, methods = ["GET", "POST"]')
+@app.route('/category/new/', methods = ["GET", "POST"])
 def addNewItem():
     #return 'This page is for adding items.'
     if request.method == 'POST':
