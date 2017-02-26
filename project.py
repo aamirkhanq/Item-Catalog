@@ -1,13 +1,24 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask import session as login_session
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Category, Item
+import random, string
 engine = create_engine('sqlite:///itemcatalog.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
 app = Flask(__name__)
+
+@app.route('/login')
+def showLogin():
+    state = ''.join(random.choice(string.ascii_uppercase +
+                                  string.digits)
+                    for x in range(32))
+    login_session['state'] = state
+    #return render_template('login.html', STATE = state)
+    return "The current state is %s" %login_session['state']
 
 @app.route('/')
 @app.route('/index/')
