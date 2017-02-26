@@ -74,7 +74,14 @@ def editItem(category_id, item_id):
 
 @app.route('/category/<int:category_id>/<int:item_id>/delete/', methods = ['GET', 'POST'])
 def deleteItem(category_id, item_id):
-    return 'This page is for deleting items.'
+    #return 'This page is for deleting items.'
+    itemToDelete = session.query(Item).filter_by(id = item_id).first()
+    if request.method == "POST":
+        session.delete(itemToDelete)
+        session.commit()
+        return redirect(url_for('showCategoryItems', category_id = category_id))
+    else:
+        return render_template('deleteitem.html', name = itemToDelete.name, category_id = category_id, item_id = item_id)
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'

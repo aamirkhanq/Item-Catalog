@@ -1,0 +1,20 @@
+{% extends base.html %}
+{% block content1 %}
+<div>
+    <h1>Categories</h1>
+</div>
+{% for category in categories %}
+<div>
+    <a href="{{ url_for('showCategoryItems', category_id = category.id) }}">{{category.name}}</a>
+</div>
+{% endfor %}
+{% endblock %}
+{% block content2 %}
+<div>
+    <h2>Are you sure you want to delete {{name}}?</h2>
+    <form action="{{ url_for('deleteItem', category_id = category_id, item_id = item_id) }}" method="post">
+    <input type="submit" value="Delete">
+    </form>
+    <a href="{{ url_for('showItem', category_id = category_id, item_id = item_id) }}">Cancel</a>
+</div>
+{% endblock %}
