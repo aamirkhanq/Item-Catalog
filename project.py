@@ -16,7 +16,7 @@ def mainpage():
     categories = session.query(Category).all()
     latest_items = session.query(Item).all()
     latest_items.reverse()
-    if len(latest_items > 10):
+    if len(latest_items) > 10:
         items = latest_items[0:10]
     else:
         items = latest_items
