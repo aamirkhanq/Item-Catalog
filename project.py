@@ -54,18 +54,20 @@ def addNewItem():
 def editItem(category_id, item_id):
     #return 'This page is for editing item.'
     item = session.query(Item).filter_by(id = item_id).first()
-    item_name = item.name
-    item_description = item.description
-    categories = session.query(Category).all()
+    #item_name = item.name
+    #item_description = item.description
+    #categories = session.query(Category).all()
     if request.method == "POST":
         if request.form['title']:
             item.name = request.form['title']
         if request.form['description']:
             item.description = request.form['description']
-        selected_category = request.form['q']
-        selected_category_row = session.query(Category).filter_by(name = selected_category).first()
+        selected_category_name = request.form['q']
+        selected_category_row = session.query(Category).filter_by(name = selected_category_name).first()
         selected_category_id = selected_category_row.id
         item.category_id = selected_category_id
+        session.add(item)
+        session.commit()
         return redirect(url_for('showItem', category_id = item.category_id, item_id = item_id))
     else:
         return render_template('editItem.html', name = item_name, description = item_description, category_id = category_id, item_id = item_id, categories = categories)
