@@ -20,7 +20,7 @@ def mainpage():
 @app.route('/category/<int:category_id>/')
 def showCategoryItems(category_id):
     #return 'You are on categories item page.'
-    items = session.query(Item).filter_by(id = category_id).all()
+    items = session.query(Item).filter_by(category_id = category_id).all()
     num_of_items = len(items)
     category = session.query(Category).filter_by(id = category_id).first()
     category = category.name
