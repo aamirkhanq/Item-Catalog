@@ -56,7 +56,7 @@ def editItem(category_id, item_id):
     item = session.query(Item).filter_by(id = item_id).first()
     #item_name = item.name
     #item_description = item.description
-    #categories = session.query(Category).all()
+    categories = session.query(Category).all()
     if request.method == "POST":
         if request.form['title']:
             item.name = request.form['title']
@@ -70,7 +70,7 @@ def editItem(category_id, item_id):
         session.commit()
         return redirect(url_for('showItem', category_id = item.category_id, item_id = item_id))
     else:
-        return render_template('editItem.html', name = item_name, description = item_description, category_id = category_id, item_id = item_id, categories = categories)
+        return render_template('editItem.html', name = item.name, description = item.description, category_id = category_id, item_id = item_id, categories = categories)
 
 @app.route('/category/<int:category_id>/<int:item_id>/delete/', methods = ['GET', 'POST'])
 def deleteItem(category_id, item_id):
