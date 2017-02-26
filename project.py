@@ -76,12 +76,13 @@ def editItem(category_id, item_id):
 def deleteItem(category_id, item_id):
     #return 'This page is for deleting items.'
     itemToDelete = session.query(Item).filter_by(id = item_id).first()
+    categories = session.query(Category).all()
     if request.method == "POST":
         session.delete(itemToDelete)
         session.commit()
         return redirect(url_for('showCategoryItems', category_id = category_id))
     else:
-        return render_template('deleteitem.html', name = itemToDelete.name, category_id = category_id, item_id = item_id)
+        return render_template('deleteitem.html', name = itemToDelete.name, category_id = category_id, item_id = item_id, categories = categories)
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
