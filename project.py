@@ -16,7 +16,11 @@ def mainpage():
     categories = session.query(Category).all()
     latest_items = session.query(Item).all()
     latest_items.reverse()
-    return render_template('index.html', categories = categories, items = latest_items[0:10], string = "Login")
+    if len(latest_items > 10):
+        items = latest_items[0:10]
+    else:
+        items = latest_items
+    return render_template('index.html', categories = categories, items = items, string = "Login")
 
 @app.route('/category/<int:category_id>/')
 def showCategoryItems(category_id):
