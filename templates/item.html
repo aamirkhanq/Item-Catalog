@@ -1,4 +1,12 @@
 {% extends "base.html" %}
+{% block content0 %}
+{% if 'username' not in session %}
+<a href="{{ url_for('showLogin') }}"><p>Login</p></a>
+{% endif %}
+{% if 'username' in session %}
+<a href="{{ url_for('gdisconnect') }}"><p>Logout</p></a>
+{% endif %}
+{% endblock %}
 {% block content1 %}
 <div>
     <h1>Categories</h1>
@@ -16,10 +24,14 @@
         {{item.description}}
     </div>
     <div>
+        {% if 'username' in session %}
         <a href="{{url_for('editItem', category_id = category_id, item_id = item.id)}}">Edit</a>
+        {% endif %}
     </div>
     <div>
+        {% if 'username' in session %}
         <a href="{{url_for('deleteItem', category_id = category_id, item_id = item.id)}}">Delete</a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
