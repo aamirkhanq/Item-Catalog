@@ -234,7 +234,7 @@ def categoryItemJSON(category_id):
 @app.route('/categories/JSON')
 def categoriesJSON():
     categories = session.query(Category).all()
-    return jsonify(Categories=[i.serialize for i in items])
+    return jsonify(Categories=[i.serialize for i in categories])
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
