@@ -20,7 +20,9 @@
 {% endblock %}
 {% block content2 %}
 <div>
+    {% if 'username' in session %}
     <a href="{{ url_for('addNewItem') }}">Add Item</a>
+    {% endif %}
     <h1>Latest Items</h1>
     {% for item in items %}
     <div>
