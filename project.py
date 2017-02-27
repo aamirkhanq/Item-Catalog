@@ -156,7 +156,7 @@ def mainpage():
         items = latest_items[0:10]
     else:
         items = latest_items
-    return render_template('index.html', categories = categories, items = items, string = "Login")
+    return render_template('index.html', categories = categories, items = items, session = login_session)
 
 @app.route('/category/<int:category_id>/')
 def showCategoryItems(category_id):
