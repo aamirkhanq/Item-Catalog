@@ -225,7 +225,7 @@ def deleteItem(category_id, item_id):
     else:
         return render_template('deleteitem.html', name = itemToDelete.name, category_id = category_id, item_id = item_id, categories = categories)
 
-@app.route('/categories/<int: category_id>/item/JSON/')
+@app.route('/categories/<int:category_id>/item/JSON/')
 def categoryItemJSON(category_id):
     category = session.query(Category).filter_by(id = category_id).one()
     items = session.query(Item).filter_by(category_id = category.id).all()
