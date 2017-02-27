@@ -24,6 +24,14 @@ class Item(Base):
     categories = relationship(Category)
     #created_date = Column(DateTime, default = datetime.datetime.utcnow)
 
+    @property
+    def serialize(self):
+        #Returns object data in easily serializable format
+        return {
+            'id' : self.id,
+            'name' : self.name,
+            'description' : self.description,
+            }
 engine = create_engine('sqlite:///itemcatalog.db')
 Base.metadata.create_all(engine)
 

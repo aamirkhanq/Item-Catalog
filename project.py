@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask import session as login_session
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
@@ -224,6 +224,12 @@ def deleteItem(category_id, item_id):
         return redirect(url_for('showCategoryItems', category_id = category_id))
     else:
         return render_template('deleteitem.html', name = itemToDelete.name, category_id = category_id, item_id = item_id, categories = categories)
+
+@app.route('/categories/<int: category_id>/item/JSON')
+def categoryItemJSON(category_id):
+    category = session.query(Category).filter_by(id = category_id).one()
+    items = session.query(Item).filter_by(category_id = category.id).all()
+    return jsonify(Items=[i.serialize for i in items])
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
