@@ -10,7 +10,7 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
-class Uber(Base):
+class User(Base):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
