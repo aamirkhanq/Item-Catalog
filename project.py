@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from flask import session as login_session
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Category, Item
+from database_setup import Base, Category, Item, User
 import random, string
 
 from oauth2client.client import flow_from_clientsecrets
@@ -103,6 +103,12 @@ def gconnect():
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
 
+    # See if user exists
+    user_id = getUserID(login_session['email'])
+    if not user_id:
+        user_id = createUser(login_session)
+    login_session['user_id'] = user_id
+    
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
@@ -113,6 +119,25 @@ def gconnect():
     flash("you are now logged in as %s" % login_session['username'])
     print "done!"
     return output
+
+def createUser(login_session):
+    newItem = User(name = login_session['username'],
+                   email = login_session['email'])
+    session.add(newItem)
+    session.commit()
+    user = session.query(User).filter_by(email = login_session['email']).one()
+    return user.id
+
+def getUserInfo(item_id):
+    user = session.query(User).filter_by(id = user_id).one()
+    return user
+
+def getUserID(email):
+    try:
+        user = session.query(User).filter_by(email = email).one()
+        return user.id
+    except:
+        return None
 
 @app.route('/gdisconnect')
 def gdisconnect():
@@ -174,16 +199,23 @@ def showItem(category_id, item_id):
     #return 'You are on the item page.'
     item = session.query(Item).filter_by(id = item_id).first()
     categories = session.query(Category).all()
-    return render_template('item.html', item = item, category_id = category_id, categories = categories, session = login_session)
+    creator = getUserInfo(item.user_id)
+    if 'username' not in login_session or creator.id != login_session['user_id']:
+        return render_template('item.html', item = item, category_id = category_id, categories = categories, session = login_session)
+    else:
+        return render_template('publicitem.html', item = item, category_id = category_id, categories = categories)
 
 @app.route('/category/new/', methods = ["GET", "POST"])
 def addNewItem():
     #return 'This page is for adding items.'
+    if 'username' not in login_session:
+        return redirect('/login')
     if request.method == 'POST':
         if request.form['name']:
             category = request.form['q']
             category_id = session.query(Category).filter_by(name = category).one()
-            newItem = Item(name = request.form['name'], description = request.form['description'], category_id = category_id.id)
+            newItem = Item(name = request.form['name'], description = request.form['description'], category_id = category_id.id,
+                           user_id = login_session['user_id'])
             session.add(newItem)
             session.commit()
             return redirect(url_for('showItem', category_id = category_id.id, item_id = newItem.id))
@@ -193,11 +225,16 @@ def addNewItem():
 
 @app.route('/category/<int:category_id>/<int:item_id>/edit/', methods = ['GET', 'POST'])
 def editItem(category_id, item_id):
+    if 'username' not in login_session:
+        return redirect('/login')
     #return 'This page is for editing item.'
     item = session.query(Item).filter_by(id = item_id).first()
     #item_name = item.name
     #item_description = item.description
     categories = session.query(Category).all()
+    if item.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to edit this item. Please create your own item in order to edit.');}</script><body onload='myFunction()''>"
+
     if request.method == "POST":
         if request.form['title']:
             item.name = request.form['title']
@@ -216,6 +253,12 @@ def editItem(category_id, item_id):
 @app.route('/category/<int:category_id>/<int:item_id>/delete/', methods = ['GET', 'POST'])
 def deleteItem(category_id, item_id):
     #return 'This page is for deleting items.'
+    if 'username' not in login_session:
+        return redirect('/login')
+
+    if item.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to delete this item. Please create your own item in order to delete.');}</script><body onload='myFunction()''>"
+
     itemToDelete = session.query(Item).filter_by(id = item_id).first()
     categories = session.query(Category).all()
     if request.method == "POST":
