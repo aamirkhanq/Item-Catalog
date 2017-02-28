@@ -38,7 +38,7 @@ class Item(Base):
     category_id = Column(Integer, ForeignKey('categories.id'))
     categories = relationship(Category)
     #created_date = Column(DateTime, default = datetime.datetime.utcnow)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship(User)
 
     @property
