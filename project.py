@@ -221,7 +221,7 @@ def addNewItem():
             return redirect(url_for('showItem', category_id = category_id.id, item_id = newItem.id))
     else:
         categories = session.query(Category).all()
-        return render_template('newitem.html', categories = categories)
+        return render_template('newitem.html', categories = categories, session = login_session)
 
 @app.route('/category/<int:category_id>/<int:item_id>/edit/', methods = ['GET', 'POST'])
 def editItem(category_id, item_id):
