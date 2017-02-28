@@ -253,13 +253,13 @@ def editItem(category_id, item_id):
 @app.route('/category/<int:category_id>/<int:item_id>/delete/', methods = ['GET', 'POST'])
 def deleteItem(category_id, item_id):
     #return 'This page is for deleting items.'
+    itemToDelete = session.query(Item).filter_by(id = item_id).first()
     if 'username' not in login_session:
         return redirect('/login')
 
-    if item.user_id != login_session['user_id']:
+    if itemToDelete.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to delete this item. Please create your own item in order to delete.');}</script><body onload='myFunction()''>"
 
-    itemToDelete = session.query(Item).filter_by(id = item_id).first()
     categories = session.query(Category).all()
     if request.method == "POST":
         session.delete(itemToDelete)
