@@ -10,11 +10,18 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+class Uber(Base):
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+    
 class Category(Base):
     __tablename__ = 'categories'
     name = Column(String(80), nullable = False)
     id = Column(Integer, primary_key = True)
-
+    
     @property
     def serialize(self):
         #Returns object data in easily serializable format
@@ -31,6 +38,8 @@ class Item(Base):
     category_id = Column(Integer, ForeignKey('categories.id'))
     categories = relationship(Category)
     #created_date = Column(DateTime, default = datetime.datetime.utcnow)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
