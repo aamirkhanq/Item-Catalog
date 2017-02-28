@@ -39,7 +39,7 @@ class Item(Base):
     categories = relationship(Category)
     #created_date = Column(DateTime, default = datetime.datetime.utcnow)
     user_id = Column(Integer, ForeignKey('users.id'))
-    user = relationship(User)
+    users = relationship(User)
 
     @property
     def serialize(self):
