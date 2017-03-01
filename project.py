@@ -228,7 +228,7 @@ def showItem(category_id, item_id):
                                category_id=category_id, categories=categories)
 
 
-@app.route('/category/new/', methods=["GET", "POST"])
+@app.route('/item/new/', methods=["GET", "POST"])
 def addNewItem():
     if 'username' not in login_session:
         return redirect('/login')
