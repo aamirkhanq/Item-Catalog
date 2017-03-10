@@ -190,7 +190,7 @@ def gdisconnect():
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if login_session['username'] is None:
+        if 'username' in login_session.keys():
             return redirect(url_for('showLogin', next=request.url))
         return f(*args, **kwargs)
     return decorated_function
