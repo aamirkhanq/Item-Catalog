@@ -186,6 +186,15 @@ def gdisconnect():
         return response
 
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if login_session['username'] is None:
+            return redirect(url_for('showLogin', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 @app.route('/')
 @app.route('/index/')
 def mainpage():
@@ -229,9 +238,10 @@ def showItem(category_id, item_id):
 
 
 @app.route('/item/new/', methods=["GET", "POST"])
+@login_required
 def addNewItem():
-    if 'username' not in login_session:
-        return redirect('/login')
+##    if 'username' not in login_session:
+##        return redirect('/login')
     if request.method == 'POST':
         if request.form['name']:
             category = request.form['q']
@@ -253,9 +263,10 @@ def addNewItem():
 
 @app.route('/category/<int:category_id>'
            '/<int:item_id>/edit/', methods=['GET', 'POST'])
+@login_required
 def editItem(category_id, item_id):
-    if 'username' not in login_session:
-        return redirect('/login')
+##    if 'username' not in login_session:
+##        return redirect('/login')
     item = session.query(Item).filter_by(id=item_id).first()
     categories = session.query(Category).all()
     if item.user_id != login_session['user_id']:
@@ -287,10 +298,11 @@ def editItem(category_id, item_id):
 
 @app.route('/category/<int:category_id>/'
            '<int:item_id>/delete/', methods=['GET', 'POST'])
+@login_required
 def deleteItem(category_id, item_id):
     itemToDelete = session.query(Item).filter_by(id=item_id).first()
-    if 'username' not in login_session:
-        return redirect('/login')
+##    if 'username' not in login_session:
+##        return redirect('/login')
 
     if itemToDelete.user_id != login_session['user_id']:
         return "<script>function myFunction()"
